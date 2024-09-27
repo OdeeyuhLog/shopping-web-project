@@ -1,7 +1,7 @@
 interface StoreItemDetails {
 	category: string;
 	description: string;
-	id: number;
+	id: string;
 	image: string;
 	price: number;
 	rating: {

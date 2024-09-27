@@ -15,4 +15,15 @@ async function getStoreItems(count: number): Promise<StoreItemDetails[]> {
 	}
 }
 
-export { getStoreItems };
+async function getStoreItem(id: string): Promise<StoreItemDetails> {
+	try {
+		const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+
+		return response.data;
+	} catch (error) {
+		console.error("Error in fetching item", error);
+		return undefined;
+	}
+}
+
+export { getStoreItems, getStoreItem };
