@@ -1,19 +1,24 @@
-import { AppShell, Button, Group, Title } from "@mantine/core";
+import {
+	AppShell,
+	Button,
+	Drawer,
+	Group,
+	Indicator,
+	Title,
+} from "@mantine/core";
 import { BackpackIcon } from "@radix-ui/react-icons";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCartStore } from "../stores/cartStore";
+import { useDisclosure } from "@mantine/hooks";
+import { ShoppingCart } from "../components/ShoppingCart";
 
 export const Route = createRootRoute({
 	component: RootComponent,
 });
 
 function RootComponent() {
-	const [cart, setCart] = useState<StoreItemDetails[]>([]);
-
-	const handleAddToCart = (item: StoreItemDetails) => {
-		setCart((prevCart) => [...prevCart, item]);
-	};
-
+	const itemsInCart = useCartStore((state) => state.items);
+	const [opened, { open, close }] = useDisclosure(false);
 	return (
 		<AppShell header={{ height: 65 }} padding="md">
 			<AppShell.Header px={60} py={15} withBorder>
@@ -28,15 +33,21 @@ function RootComponent() {
 						</Group>
 					</Group>
 					<Group>
-						<Link to="/">
+						<Indicator
+							label={itemsInCart.length}
+							disabled={itemsInCart.length < 0}
+							size={23}
+						>
 							<Button
 								radius={"xl"}
 								variant="gradient"
 								gradient={{ from: "gray", to: "cyan", deg: 75 }}
+								onClick={open}
 							>
 								<BackpackIcon />
 							</Button>
-						</Link>
+							<ShoppingCart opened={opened} close={close} />
+						</Indicator>
 					</Group>
 				</Group>
 			</AppShell.Header>
