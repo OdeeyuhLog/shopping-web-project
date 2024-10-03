@@ -4,5 +4,5 @@ import { StoreItemsList } from "../../components/StoreItemsList";
 
 export const Route = createFileRoute("/items/")({
 	component: () => <StoreItemsList />,
-	loader: () => getStoreItems(3),
+	loader: async () => await getStoreItems(20),
 });
