@@ -50,10 +50,10 @@ export const ShoppingCart = ({ opened, close }: ShoppingCartProps) => {
 				<Title order={2} size="h4" className="h-4">
 					Items ({items.length})
 				</Title>
-				<ScrollArea h="100%" scrollbarSize={8} className="flex-grow mb-20">
+				<ScrollArea h="100%" px={'lg'} scrollbarSize={8} className="flex-grow mb-20">
 					{items.map((item) => (
 						<Paper key={item.item.id} shadow="sm" mb="sm">
-							<Group p="sm" gap={17}>
+							<Group py={"md"} px={5} gap={17}>
 								<div className="relative w-[30px] h-[30px]">
 									{!loadedImages[item.item.id] && (
 										<div className="absolute inset-0 flex items-center justify-center">

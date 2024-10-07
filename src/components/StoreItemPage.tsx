@@ -10,7 +10,7 @@ import {
 import { useLoaderData } from "@tanstack/react-router";
 import { useCartStore } from "../stores/cartStore";
 import { useRef, useState } from "react";
-import { IconPlus, IconLoader } from "@tabler/icons-react";
+import { IconLoader, IconShoppingCartPlus } from "@tabler/icons-react";
 import { toast } from "sonner";
 
 export const StoreItemPage = () => {
@@ -49,7 +49,7 @@ export const StoreItemPage = () => {
 						w={100}
 						ref={quantityInputRef}
 					/>
-					<Button leftSection={<IconPlus />} onClick={handleAddToCart} w={"max-content"}>
+					<Button leftSection={<IconShoppingCartPlus />} onClick={handleAddToCart} w={"max-content"} mt={10}>
 						Add to Cart
 					</Button>
 				</Stack>
