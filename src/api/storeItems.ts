@@ -22,7 +22,7 @@ async function getStoreItem(id: string): Promise<StoreItemDetails> {
 		return response.data;
 	} catch (error) {
 		console.error("Error in fetching item", error);
-		return undefined;
+		throw new Error("Failed to fetch item");
 	}
 }
 

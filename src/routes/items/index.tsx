@@ -5,7 +5,7 @@ import { fetchCategories } from "../../api/categories";
 
 export const Route = createFileRoute("/items/")({
 	component: () => <StoreItemsList />,
-	loader: async ({ context }) => {
+	loader: async () => {
 		const [items, categories] = await Promise.all([
 			getStoreItems(30),
 			fetchCategories(),

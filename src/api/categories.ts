@@ -9,7 +9,7 @@ async function fetchCategories(): Promise<string[]> {
 		return response.data;
 	} catch (error) {
 		console.error("Error in fetching categories", error);
-		return undefined;
+		return [];
 	}
 }
 
