@@ -1,4 +1,4 @@
-import { Button, Select, Stack, Text } from "@mantine/core";
+import { Button, Select, Stack } from "@mantine/core";
 import type { SortOption } from "./StoreItemsList";
 
 interface SortControlsProps {
@@ -21,13 +21,28 @@ export const SortControls = ({
 	return (
 		<>
 			<Stack p={10} py={20} className="border-r-2">
-				<Button onClick={() => onSort("title")} size="compact-sm" fz={"xs"}>
+				<Button
+					variant="default"
+					onClick={() => onSort("title")}
+					size="compact-sm"
+					fz={"xs"}
+				>
 					Sort by Title
 				</Button>
-				<Button onClick={() => onSort("price")} size="compact-sm" fz={"xs"}>
+				<Button
+					variant="default"
+					onClick={() => onSort("price")}
+					size="compact-sm"
+					fz={"xs"}
+				>
 					Sort by Price
 				</Button>
-				<Button onClick={() => onSort("rating")} size="compact-sm" fz={"xs"}>
+				<Button
+					variant="default"
+					onClick={() => onSort("rating")}
+					size="compact-sm"
+					fz={"xs"}
+				>
 					Sort by Rating
 				</Button>
 				<Select

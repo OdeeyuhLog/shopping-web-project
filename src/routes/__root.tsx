@@ -1,11 +1,4 @@
-import {
-	AppShell,
-	Button,
-	Container,
-	Group,
-	Indicator,
-	Text,
-} from "@mantine/core";
+import { AppShell, Button, Group, Indicator, Text } from "@mantine/core";
 import { BackpackIcon } from "@radix-ui/react-icons";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { useCartStore } from "../stores/cartStore";

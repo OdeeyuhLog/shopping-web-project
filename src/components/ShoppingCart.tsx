@@ -1,5 +1,6 @@
 import {
 	Button,
+	CloseButton,
 	Drawer,
 	Group,
 	Image,
@@ -13,7 +14,7 @@ import {
 } from "@mantine/core";
 import { useCartStore } from "../stores/cartStore";
 import { useState } from "react";
-import { IconLoader } from "@tabler/icons-react";
+import { IconLoader, IconTrashXFilled } from "@tabler/icons-react";
 
 interface ShoppingCartProps {
 	opened: boolean;
@@ -21,7 +22,7 @@ interface ShoppingCartProps {
 }
 
 export const ShoppingCart = ({ opened, close }: ShoppingCartProps) => {
-	const { items, updateQuantity } = useCartStore();
+	const { items, updateQuantity, removeItem } = useCartStore();
 	const totalValue = items.reduce((total, item) => {
 		return total + item.item.price * item.quantity;
 	}, 0);
@@ -50,56 +51,75 @@ export const ShoppingCart = ({ opened, close }: ShoppingCartProps) => {
 				<Title order={2} size="h4" className="h-4">
 					Items ({items.length})
 				</Title>
-				<ScrollArea h="100%" px={'lg'} scrollbarSize={8} className="flex-grow mb-20">
-					{items.map((item) => (
-						<Paper key={item.item.id} shadow="sm" mb="sm">
-							<Group py={"md"} px={5} gap={17}>
-								<div className="relative w-[30px] h-[30px]">
-									{!loadedImages[item.item.id] && (
-										<div className="absolute inset-0 flex items-center justify-center">
-											<IconLoader
-												className="animate-spin text-gray-500"
-												size={20}
+
+				<ScrollArea
+					h="100%"
+					px={"lg"}
+					scrollbarSize={8}
+					className="flex-grow mb-20"
+				>
+					{items.length === 0 ? (
+						<Text c={"gray"} size="sm" ta={"center"}>
+							Your cart is empty
+						</Text>
+					) : (
+						items.map((item) => (
+							<Paper key={item.item.id} shadow="sm" mb="sm">
+								<Group py={"md"} px={5} gap={17}>
+									<div className="relative w-[30px] h-[30px]">
+										{!loadedImages[item.item.id] && (
+											<div className="absolute inset-0 flex items-center justify-center">
+												<IconLoader
+													className="animate-spin text-gray-500"
+													size={20}
+												/>
+											</div>
+										)}
+										<Image
+											src={item.item.image}
+											h={30}
+											w={"auto"}
+											onLoad={() => handleImageLoad(item.item.id)}
+											style={{ opacity: loadedImages[item.item.id] ? 1 : 0 }}
+											loading="lazy"
+										/>
+									</div>
+									<Stack gap={25}>
+										<Stack gap={1}>
+											<Text c="dimmed" tt="uppercase" size="xs">
+												{item.item.category}
+											</Text>
+											<Title order={3} size="h6" lineClamp={1} w={"300"}>
+												{item.item.title}
+											</Title>
+										</Stack>
+										<Group justify="space-between">
+											<div>
+												<NumberInput
+													size="xs"
+													w={80}
+													min={1}
+													value={item.quantity}
+													onChange={handleUpdateQuantity(item.item.id)}
+												/>
+												<NumberFormatter
+													prefix="$"
+													value={item.item.price * item.quantity}
+													decimalScale={2}
+													fixedDecimalScale
+												/>
+											</div>
+											<CloseButton
+												icon={<IconTrashXFilled />}
+												radius={"md"}
+												onClick={() => removeItem(item.item.id)}
 											/>
-										</div>
-									)}
-									<Image
-										src={item.item.image}
-										h={30}
-										w={"auto"}
-										onLoad={() => handleImageLoad(item.item.id)}
-										style={{ opacity: loadedImages[item.item.id] ? 1 : 0 }}
-										loading="lazy"
-									/>
-								</div>
-								<Stack gap={25}>
-									<Stack gap={1}>
-										<Text c="dimmed" tt="uppercase" size="xs">
-											{item.item.category}
-										</Text>
-										<Title order={3} size="h6" lineClamp={1} w={"300"}>
-											{item.item.title}
-										</Title>
+										</Group>
 									</Stack>
-									<Group>
-										<NumberInput
-											size="xs"
-											w={80}
-											min={1}
-											value={item.quantity}
-											onChange={handleUpdateQuantity(item.item.id)}
-										/>
-										<NumberFormatter
-											prefix="$"
-											value={item.item.price * item.quantity}
-											decimalScale={2}
-											fixedDecimalScale
-										/>
-									</Group>
-								</Stack>
-							</Group>
-						</Paper>
-					))}
+								</Group>
+							</Paper>
+						))
+					)}
 				</ScrollArea>
 				<Paper
 					shadow="sm"
