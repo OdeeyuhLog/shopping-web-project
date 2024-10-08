@@ -13,6 +13,7 @@ import {
 import { Link, useLoaderData } from "@tanstack/react-router";
 import { SortControls } from "./SortControls";
 import { useState } from "react";
+import { LoadingScreen } from "./LoadingScreen";
 
 export type SortOption = "title" | "price" | "rating" | "category";
 
@@ -20,6 +21,10 @@ export const StoreItemsList = () => {
 	const { categories, items } = useLoaderData({ from: "/items/" });
 	const [sortOption, setSortOption] = useState<SortOption>();
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+	if (!items) {
+		return <LoadingScreen />;
+	}
 
 	const filteredAndSortedItems = [...items]
 		.filter(

@@ -1,12 +1,4 @@
-import {
-	Anchor,
-	Button,
-	Container,
-	Group,
-	NavLink,
-	Stack,
-	Text,
-} from "@mantine/core";
+import { Anchor, Stack, Container, Group, Text } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 
@@ -53,7 +45,7 @@ export const Footer = () => {
 							<Anchor c={"black"} href="https://github.com/OdeeyuhLog">
 								<Text className="flex gap-2 items-center" size="xs">
 									<IconBrandGithub size={12} />
-									<p>Developed by OdeeyuhLog</p>
+									Developed by OdeeyuhLog
 								</Text>
 							</Anchor>
 						</Group>
